@@ -1,5 +1,277 @@
-AATHIKA
-1GV23CS001
-COMPUTER SCIENCE AND ENGINEERING
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Portfolio</title>
 
-                               CLOUD COMPUTING CASE STUDY
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    scroll-behavior:smooth;
+    font-family:'Poppins', sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    color:white;
+    overflow-x:hidden;
+    cursor:none;
+}
+
+/* Particle canvas */
+#particles{
+    position:fixed;
+    width:100%;
+    height:100%;
+    z-index:-2;
+}
+
+/* Glowing cursor */
+.cursor{
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    position:fixed;
+    background:#00f0ff;
+    box-shadow:0 0 20px #00f0ff, 0 0 40px #ff00cc;
+    pointer-events:none;
+    transform:translate(-50%, -50%);
+    z-index:999;
+}
+
+/* Navbar */
+nav{
+    position:fixed;
+    width:100%;
+    padding:20px 10%;
+    display:flex;
+    justify-content:space-between;
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(12px);
+    z-index:100;
+}
+
+.logo{
+    font-size:28px;
+    font-weight:700;
+    color:#ff4d6d;
+}
+
+nav ul{
+    display:flex;
+    gap:30px;
+    list-style:none;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:white;
+    transition:0.3s;
+}
+
+nav ul li a:hover{
+    color:#ff4d6d;
+}
+
+/* Sections */
+section{
+    min-height:100vh;
+    padding:100px 10%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    opacity:0;
+    transform:translateY(60px);
+    transition:all 1s ease;
+}
+
+section.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* Hero */
+.hero h1{
+    font-size:65px;
+    text-align:center;
+}
+
+.hero span{
+    color:#ff4d6d;
+}
+
+#typing{
+    margin:20px 0;
+    border-right:3px solid #00f0ff;
+    animation:blink 0.8s infinite;
+}
+
+@keyframes blink{
+    50%{border-color:transparent;}
+}
+
+/* Button */
+.btn{
+    background:linear-gradient(to right,#ff00cc,#00f0ff);
+    padding:14px 35px;
+    border-radius:30px;
+    text-decoration:none;
+    color:white;
+    box-shadow:0 0 20px #ff00cc;
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:scale(1.1);
+}
+
+/* Cards */
+.glass{
+    background:rgba(255,255,255,0.05);
+    padding:30px;
+    border-radius:20px;
+    backdrop-filter:blur(10px);
+    box-shadow:0 0 25px rgba(0,240,255,0.3);
+}
+
+.projects{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.card{
+    padding:20px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.05);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 20px #00f0ff;
+}
+
+h2{
+    color:#ff4d6d;
+    margin-bottom:30px;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+<div class="cursor"></div>
+
+<nav>
+<div class="logo">Portfolio</div>
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#projects">Projects</a></li>
+</ul>
+</nav>
+
+<section class="hero" id="home">
+<h1>Hey, It's <span>Aathika</span></h1>
+<p id="typing"></p>
+<a href="#projects" class="btn">View Projects</a>
+</section>
+
+<section id="about">
+<h2>About Me</h2>
+<div class="glass">
+Aspiring software engineer passionate about developing modern, user-friendly web applications and engaging UI experiences.”
+</div>
+</section>
+
+<section id="projects">
+<h2>Projects</h2>
+<div class="projects">
+<div class="card">Student Management System</div>
+<div class="card">AI Stress Predictor</div>
+<div class="card">Simple Calci</div>
+<div class="card">Online Quiz System</div>
+</div>
+</section>
+
+<script>
+
+/* Typing */
+const text="Engineering Student | Web Developer | Java Developer";
+let i=0;
+function type(){
+    if(i<text.length){
+        typing.innerHTML+=text.charAt(i);
+        i++;
+        setTimeout(type,70);
+    }
+}
+type();
+
+/* Scroll Animation */
+const sections=document.querySelectorAll("section");
+window.addEventListener("scroll",()=>{
+    sections.forEach(sec=>{
+        const top=sec.getBoundingClientRect().top;
+        if(top<window.innerHeight-100){
+            sec.classList.add("show");
+        }
+    });
+});
+
+/* Cursor */
+const cursor=document.querySelector(".cursor");
+document.addEventListener("mousemove",(e)=>{
+    cursor.style.left=e.clientX+"px";
+    cursor.style.top=e.clientY+"px";
+});
+
+/* Particles */
+const canvas=document.getElementById("particles");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let particles=[];
+for(let i=0;i<80;i++){
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        dx:(Math.random()-0.5)*1,
+        dy:(Math.random()-0.5)*1
+    });
+}
+
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,2,0,Math.PI*2);
+        ctx.fillStyle="#00f0ff";
+        ctx.fill();
+
+        p.x+=p.dx;
+        p.y+=p.dy;
+
+        if(p.x<0||p.x>canvas.width) p.dx*=-1;
+        if(p.y<0||p.y>canvas.height) p.dy*=-1;
+    });
+    requestAnimationFrame(draw);
+}
+draw();
+
+</script>
+
+</body>
+</html>
